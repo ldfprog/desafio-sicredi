@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/v1/votos")
 @RestController
-public class VotoController {
+public class VotoControllerV1 {
 
     @Autowired
     private VotoService service;

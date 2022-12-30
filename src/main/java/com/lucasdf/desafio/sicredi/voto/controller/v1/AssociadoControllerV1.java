@@ -1,9 +1,9 @@
 package com.lucasdf.desafio.sicredi.voto.controller.v1;
 
-import com.lucasdf.desafio.sicredi.voto.dto.PautaDto;
+import com.lucasdf.desafio.sicredi.voto.dto.AssociadoDto;
 import com.lucasdf.desafio.sicredi.voto.dto.ResponseDto;
-import com.lucasdf.desafio.sicredi.voto.model.Pauta;
-import com.lucasdf.desafio.sicredi.voto.service.PautaService;
+import com.lucasdf.desafio.sicredi.voto.model.Associado;
+import com.lucasdf.desafio.sicredi.voto.service.AssociadoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -17,43 +17,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/v1/pautas")
+@RequestMapping("/v1/associados")
 @RestController
-public class PautaController {
+public class AssociadoControllerV1 {
 
     @Autowired
-    private PautaService service;
+    private AssociadoService service;
 
-    @Operation(summary = "Criação de uma nova pauta. " +
-            "Se a descrição informada já existe retorna o id da pauta já cadastrada.")
+    @Operation(summary = "Cadastro de associado. " +
+            "Se o CPF informado já existe retorna o id do associado já cadastrado.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Operação realizada com sucesso.",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseDto.class)) }),
-            @ApiResponse(responseCode = "400", description = "Descrição não informada.",
+                    schema = @Schema(implementation = ResponseDto.class)) }),
+            @ApiResponse(responseCode = "400", description = "Cpf não informado.",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseDto.class)) }),
+                    schema = @Schema(implementation = ResponseDto.class)) }),
             @ApiResponse(responseCode = "409", description = "Erro ao persistir o dado.",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseDto.class)) }) })
+                    schema = @Schema(implementation = ResponseDto.class)) }) })
     @PostMapping
-    public ResponseEntity<ResponseDto> salvar(@RequestBody PautaDto pautaDto) {
+    public ResponseEntity<ResponseDto> salvar(@RequestBody AssociadoDto associadoDto) {
 
         ResponseDto response = new ResponseDto();
 
         //Validações do objeto de entrada
-        if (pautaDto.getDescricao() == null) {
-            response.setErro("Descrição da pauta não informada.");
+        if (associadoDto.getCpf() == null) {
+            response.setErro("CPF do associado não informado.");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
         //De-Para Dto -> Entity
-        Pauta pauta = new Pauta(pautaDto.getDescricao());
+        Associado associado = new Associado(associadoDto.getCpf());
 
         //Chamada do serviço
         try {
-            Pauta pautaSalva = service.criar(pauta);
-            response.setId(pautaSalva.getId());
+            Associado associadoSalvo = service.cadastrar(associado);
+            response.setId(associadoSalvo.getId());
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (RuntimeException re) {
             response.setErro(re.getMessage());
