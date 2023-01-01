@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "0d7cb897-a8cb-4fff-b0bb-cf281a786c7c",
+		"name": "Desafio Sicredi - Votos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7928780"
+	},
+	"item": [
+		{
+			"name": "Criar pauta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"descricao\": \"Pauta de teste\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/votacao/{{versao}}/pautas",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"votacao",
+						"{{versao}}",
+						"pautas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastrar Associado",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cpf\": \"19839091069\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/votacao/{{versao}}/associados",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"votacao",
+						"{{versao}}",
+						"associados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Abrir Sessão",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"duracao\": 10,\r\n    \"pauta\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/votacao/{{versao}}/sessoes",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"votacao",
+						"{{versao}}",
+						"sessoes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Votar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"associado\": 9,\r\n    \"sessao\": 7,\r\n    \"voto\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/votacao/{{versao}}/votos",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"votacao",
+						"{{versao}}",
+						"votos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Resultado votação",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/votacao/{{versao}}/votos?pauta=11",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"votacao",
+						"{{versao}}",
+						"votos"
+					],
+					"query": [
+						{
+							"key": "pauta",
+							"value": "11"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "versao",
+			"value": "v1",
+			"type": "string"
+		}
+	]
+}

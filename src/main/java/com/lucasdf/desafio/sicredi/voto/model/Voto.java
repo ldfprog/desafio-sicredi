@@ -25,7 +25,7 @@ public class Voto {
     public Voto() {
     }
 
-    public Voto(Pauta pauta, Associado associado, Sessao sessao, Boolean voto, Date dataVoto) {
+    public Voto(Associado associado, Sessao sessao, Boolean voto, Date dataVoto) {
         this.associado = associado;
         this.sessao = sessao;
         this.voto = voto;
